@@ -12,4 +12,4 @@ path = "src/http/lib.rs"
 git = "https://github.com/sfackler/rust-openssl.git"
 
 [dependencies.url]
-git = "https://github.com/servo/rust-url"
+git = "https://github.com/nickel-org/rust-url"

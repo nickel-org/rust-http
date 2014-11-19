@@ -142,7 +142,9 @@ pub fn is_separator(o: u8) -> bool {
 
 mod content_coding {
     use std::fmt;
-    use std::from_str::FromStr;
+    use std::str::FromStr;
+
+    use self::ValueToken::{Gzip, Compress, Deflate, Identity};
 
     /// Content-coding value tokens
     pub enum ValueToken {
@@ -200,6 +202,8 @@ mod content_coding {
 
 mod transfer_coding {
     use std::fmt;
+
+    use self::ValueToken::{Chunked, Gzip, Compress, Deflate};
 
     /// Transfer-coding value tokens
     // Identity is in RFC 2616 but is withdrawn in RFC 2616 errata ID 408

@@ -3,8 +3,8 @@ name = "http"
 version = "0.1.0-pre"
 authors = ["Chris Morgan <me@chrismorgan.info>"]
 description = "Obsolete HTTP library"
-#documentation = 
-#homepage = 
+#documentation =
+#homepage =
 repository = "https://github.com/chris-morgan/rust-http"
 readme = "README.rst"
 keywords = ["web", "http", "library"]
@@ -19,11 +19,12 @@ ssl = ["openssl"]
 name = "http"
 path = "src/http/lib.rs"
 
-[dependencies]
-url = "*"
-log = "*"
-time = "*"
-
 [dependencies.openssl]
-version = "*"
+git = "https://github.com/sfackler/rust-openssl.git"
 optional = true
+
+[dependencies.url]
+git = "https://github.com/nickel-org/rust-url"
+
+[dependencies.time]
+git = "https://github.com/rust-lang/time"

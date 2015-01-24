@@ -3,6 +3,7 @@ use method::Method;
 use method::Method::Options;
 use status;
 use status::Status::{BadRequest, RequestUriTooLong, HttpVersionNotSupported};
+use std::fmt::Display;
 use std::io::{Stream, IoResult};
 use std::io::net::ip::SocketAddr;
 use std::io::net::tcp::TcpStream;
@@ -260,7 +261,7 @@ pub struct Request {
 }
 
 /// The URI (Request-URI in RFC 2616) as specified in the Status-Line of an HTTP request
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Debug)]
 pub enum RequestUri {
     /// 'The asterisk "*" means that the request does not apply to a particular resource, but to the
     /// server itself, and is only allowed when the method used does not necessarily apply to a
@@ -313,7 +314,7 @@ impl RequestUri {
     }
 }
 
-impl fmt::Show for RequestUri {
+impl fmt::Display for RequestUri {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Star => f.write_str("*"),

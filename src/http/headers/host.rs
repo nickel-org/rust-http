@@ -4,7 +4,7 @@ use std::io::Reader;
 use std::fmt;
 
 /// A simple little thing for the host of a request
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Host {
 
     /// The name of the host that was requested
@@ -16,7 +16,7 @@ pub struct Host {
     pub port: Option<u16>,
 }
 
-impl fmt::Show for Host {
+impl fmt::Display for Host {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self.port {
             Some(port) => write!(f, "{}:{}", self.name, port),

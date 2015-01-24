@@ -5,6 +5,7 @@
 //! unknown headers are stored in a map in the traditional way.
 
 use url::Url;
+use std::fmt::Debug;
 use std::io::IoResult;
 use time::{Tm, strptime};
 use rfc2616::{is_token_item, is_separator, CR, LF, SP, HT, COLON};
@@ -535,7 +536,7 @@ impl<'a, R: Reader> Iterator for HeaderValueByteIterator<'a, R> {
 /**
  * A datatype for headers.
  */
-pub trait HeaderConvertible: PartialEq + Clone {
+pub trait HeaderConvertible: PartialEq + Clone + Debug {
     /**
      * Read a header value from an iterator over the raw value.
      *

@@ -176,7 +176,7 @@ pub enum ContentCoding {
     // - "pack200-gzip" (Network Transfer Format for Java Archives)
 }
 
-impl fmt::Show for ContentCoding {
+impl fmt::Display for ContentCoding {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(match *self {
             ContentCoding::Gzip => "gzip",
@@ -214,7 +214,7 @@ pub enum TransferCoding {
     Deflate,   // See above
 }
 
-impl fmt::Show for TransferCoding {
+impl fmt::Display for TransferCoding {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(match *self {
             TransferCoding::Chunked => "chunked",

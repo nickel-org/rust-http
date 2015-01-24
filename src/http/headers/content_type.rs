@@ -1,9 +1,9 @@
 //! The Content-Type entity header, defined in RFC 2616, Section 14.17.
 use headers::serialization_utils::{push_parameters, WriterUtil};
 use std::io::IoResult;
-use std::fmt;
+use std::fmt::{self, Display};
 
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct MediaType {
     pub type_: String,
     pub subtype: String,
@@ -22,7 +22,7 @@ impl MediaType {
 
 
 
-impl fmt::Show for MediaType {
+impl fmt::Display for MediaType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // Idea:
         //let s = String::new();
@@ -71,7 +71,7 @@ impl super::HeaderConvertible for MediaType {
     }
 
     fn http_value(&self) -> String {
-        format!("{:?}", self)
+        format!("{}", self)
     }
 }
 

@@ -4,7 +4,7 @@
 // whether they should be interpreted (I recall its being a header name thing for legacy code,
 // perhaps I should normalise header case or some such thing?)
 
-use std::fmt;
+use std::fmt::{self, Display};
 use std::io::IoResult;
 use headers::serialization_utils::normalise_header_name;
 
@@ -12,13 +12,13 @@ use self::Connection::{Token, Close};
 
 /// A value for the Connection header. Note that should it be a ``Token``, the string is in
 /// normalised header case (e.g. "Keep-Alive").
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub enum Connection {
     Token(String),
     Close,
 }
 
-impl fmt::Show for Connection {
+impl fmt::Display for Connection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(match *self {
             Token(ref s) => &s[],

@@ -173,7 +173,7 @@ use std::num::{ToPrimitive, FromPrimitive};
 pub use self::Status::*;
 
 /// HTTP status code
-#[derive(Eq, PartialEq, Clone, Debug)]
+#[derive(Eq, PartialEq, Clone)]
 pub enum Status {
 ".as_bytes()));
     for &entry in entries.iter() {
@@ -245,7 +245,7 @@ impl Status {
     }
 }
 
-impl fmt::Display for Status {
+impl fmt::Show for Status {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, \"{} {}\", self.code(), self.reason())
     }

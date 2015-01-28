@@ -7,6 +7,8 @@
 // No, I don't mind.
 // That was easy. :-)
 
+#![allow(deprecated)]
+
 use std::collections::HashSet;
 use std::ascii::AsciiExt;
 use std::old_io::IoResult;

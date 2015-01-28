@@ -1,3 +1,5 @@
+#![allow(deprecated)]
+
 use super::branchify::generate_branchified_method;
 use super::get_writer;
 use std::old_io::IoResult;

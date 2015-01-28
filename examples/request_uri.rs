@@ -10,8 +10,8 @@
 extern crate time;
 extern crate http;
 
-use std::io::net::ip::{SocketAddr, Ipv4Addr};
-use std::io::Writer;
+use std::old_io::net::ip::{SocketAddr, Ipv4Addr};
+use std::old_io::Writer;
 
 use http::server::{Config, Server, Request, ResponseWriter};
 use http::server::request::RequestUri::{Star, AbsoluteUri, AbsolutePath, Authority};

@@ -3,7 +3,7 @@
 //! Transfer-Encoding       = "Transfer-Encoding" ":" 1#transfer-coding
 
 use std::ascii::AsciiExt;
-use std::io::IoResult;
+use std::old_io::IoResult;
 use headers::serialization_utils::{WriterUtil, push_parameters};
 
 pub use self::TransferCoding::{Chunked, TransferExtension};

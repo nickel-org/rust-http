@@ -1,6 +1,6 @@
 //! The Host request header, defined in RFC 2616, Section 14.23.
 
-use std::io::Reader;
+use std::old_io::Reader;
 use std::fmt;
 
 /// A simple little thing for the host of a request

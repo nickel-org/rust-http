@@ -1,7 +1,7 @@
 // The spelling "Connecter" is deliberate, by the way.
 
-use std::io::IoResult;
-use std::io::net::ip::SocketAddr;
+use std::old_io::IoResult;
+use std::old_io::net::ip::SocketAddr;
 
 /// A trait for the concept of opening a stream connected to a IP socket address.
 ///

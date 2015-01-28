@@ -59,9 +59,9 @@ let response = match request.read_response() {
 
 use url::Url;
 use method::Method;
-use std::io::{IoError, IoResult};
-use std::io::net::get_host_addresses;
-use std::io::net::ip::{SocketAddr, Ipv4Addr};
+use std::old_io::{IoError, IoResult};
+use std::old_io::net::get_host_addresses;
+use std::old_io::net::ip::{SocketAddr, Ipv4Addr};
 use buffer::BufferedStream;
 use headers::request::HeaderCollection;
 use headers::host::Host;

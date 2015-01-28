@@ -1,5 +1,5 @@
-use std::io::IoResult;
-use std::io::net::tcp::TcpStream;
+use std::old_io::IoResult;
+use std::old_io::net::tcp::TcpStream;
 
 use buffer::BufferedStream;
 use status;

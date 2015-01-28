@@ -5,7 +5,7 @@
 // perhaps I should normalise header case or some such thing?)
 
 use std::fmt::{self, Display};
-use std::io::IoResult;
+use std::old_io::IoResult;
 use headers::serialization_utils::normalise_header_name;
 
 use self::Connection::{Token, Close};

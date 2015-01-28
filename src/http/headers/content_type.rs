@@ -1,6 +1,6 @@
 //! The Content-Type entity header, defined in RFC 2616, Section 14.17.
 use headers::serialization_utils::{push_parameters, WriterUtil};
-use std::io::IoResult;
+use std::old_io::IoResult;
 use std::fmt::{self, Display};
 
 #[derive(Clone, PartialEq, Eq, Debug)]

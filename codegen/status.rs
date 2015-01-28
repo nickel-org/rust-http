@@ -9,7 +9,7 @@
 
 use std::collections::HashSet;
 use std::ascii::AsciiExt;
-use std::io::IoResult;
+use std::old_io::IoResult;
 use std::iter::repeat;
 use super::get_writer;
 

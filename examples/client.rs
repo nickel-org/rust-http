@@ -10,7 +10,7 @@ use http::method::Get;
 use http::headers::HeaderEnum;
 use std::os;
 use std::str;
-use std::io::println;
+use std::old_io::println;
 use url::Url;
 
 fn main() {

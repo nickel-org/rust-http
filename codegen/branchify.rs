@@ -2,7 +2,7 @@
 
 use std::str::Chars;
 use std::vec::Vec;
-use std::io::IoResult;
+use std::old_io::IoResult;
 use std::iter::repeat;
 use std::ascii::AsciiExt;
 
@@ -113,7 +113,7 @@ pub fn generate_branchified_method(
                                   unknown.replace("{}", &format!("String::from_str(\"{}\")", next_prefix)[]))),
             }
             w!(format!("    Ok(b) if {} => (\"{}\", b),", valid, next_prefix));
-            w!("    Ok(_) => return Err(::std::io::IoError { kind: ::std::io::OtherIoError, desc: \"bad value\", detail: None }),");
+            w!("    Ok(_) => return Err(::std::old_io::IoError { kind: ::std::old_io::OtherIoError, desc: \"bad value\", detail: None }),");
             w!("    Err(err) => return Err(err),");
             w!("},");
         }
@@ -131,7 +131,7 @@ pub fn generate_branchified_method(
         try!(r(writer, b, "", indent + 1, read_call, end, max_len, valid, unknown));
     }
     w!(format!("    Ok(b) if {} => (\"\", b),", valid));
-    w!(       ("    Ok(_) => return Err(::std::io::IoError { kind: ::std::io::OtherIoError, desc: \"bad value\", detail: None }),"));
+    w!(       ("    Ok(_) => return Err(::std::old_io::IoError { kind: ::std::old_io::OtherIoError, desc: \"bad value\", detail: None }),"));
     w!(       ("    Err(err) => return Err(err),"));
     w!(       ("};"));
     w!(       ("// OK, that didn't pan out. Let's read the rest and see what we get."));
@@ -143,11 +143,11 @@ pub fn generate_branchified_method(
     w!(format!("        Ok(b) if {} => {{", valid));
     w!(format!("            if s.len() == {} {{", max_len));
     w!(       ("                // Too long; bad request"));
-    w!(       ("                return Err(::std::io::IoError { kind: ::std::io::OtherIoError, desc: \"too long, bad request\", detail: None });"));
+    w!(       ("                return Err(::std::old_io::IoError { kind: ::std::old_io::OtherIoError, desc: \"too long, bad request\", detail: None });"));
     w!(       ("            }"));
     w!(       ("            s.push(b as char);"));
     w!(       ("        },"));
-    w!(       ("        Ok(_) => return Err(::std::io::IoError { kind: ::std::io::OtherIoError, desc: \"bad value\", detail: None }),"));
+    w!(       ("        Ok(_) => return Err(::std::old_io::IoError { kind: ::std::old_io::OtherIoError, desc: \"bad value\", detail: None }),"));
     w!(       ("        Err(err) => return Err(err),"));
     w!(       ("    }"));
     w!(       ("}"));

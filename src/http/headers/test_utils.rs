@@ -1,4 +1,4 @@
-use std::io::{MemReader, MemWriter};
+use std::old_io::{MemReader, MemWriter};
 use std::fmt;
 use std::vec::Vec;
 use headers::{HeaderConvertible, HeaderValueByteIterator};

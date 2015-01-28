@@ -1,6 +1,6 @@
-/// Memory buffers for the benefit of `std::io::net` which has slow read/write.
+/// Memory buffers for the benefit of `std::old_io::net` which has slow read/write.
 
-use std::io::{IoResult, Stream};
+use std::old_io::{IoResult, Stream};
 use std::cmp::min;
 use std::slice;
 use std::fmt::radix;

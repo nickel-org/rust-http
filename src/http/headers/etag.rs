@@ -1,5 +1,5 @@
 use headers::serialization_utils::{push_quoted_string, quoted_string, WriterUtil};
-use std::io::IoResult;
+use std::old_io::IoResult;
 use std::fmt;
 
 #[derive(Clone, PartialEq, Eq, Debug)]

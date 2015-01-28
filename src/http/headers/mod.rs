@@ -6,7 +6,7 @@
 
 use url::Url;
 use std::fmt::Debug;
-use std::io::IoResult;
+use std::old_io::IoResult;
 use time::{Tm, strptime};
 use rfc2616::{is_token_item, is_separator, CR, LF, SP, HT, COLON};
 use method::Method;
@@ -895,7 +895,7 @@ macro_rules! headers_mod {
             #[$attr]
 
             #[allow(unused_imports)]
-            use std::io::{BufReader, IoResult};
+            use std::old_io::{BufReader, IoResult};
             use std::ascii::OwnedAsciiExt;
             use time;
             use std::collections::hash_map::{HashMap, Iter};

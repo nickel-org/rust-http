@@ -3,9 +3,9 @@
 #[cfg(any(feature = "ssl", feature = "default"))]
 extern crate openssl;
 
-use std::io::net::ip::SocketAddr;
-use std::io::net::tcp::TcpStream;
-use std::io::{IoResult, IoError, ConnectionAborted, OtherIoError};
+use std::old_io::net::ip::SocketAddr;
+use std::old_io::net::tcp::TcpStream;
+use std::old_io::{IoResult, IoError, ConnectionAborted, OtherIoError};
 use self::openssl::ssl::{SslStream, SslContext, SslMethod, Ssl};
 use self::openssl::ssl::error::{SslError, StreamError, SslSessionClosed, OpenSslErrors};
 use self::NetworkStream::{NormalStream, SslProtectedStream};

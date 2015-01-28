@@ -1,4 +1,4 @@
-use std::io::{Stream, IoResult, OtherIoError, IoError};
+use std::old_io::{Stream, IoResult, OtherIoError, IoError};
 use client::request::RequestWriter;
 use rfc2616::{CR, LF, SP};
 use common::read_http_version;

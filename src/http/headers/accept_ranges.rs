@@ -1,6 +1,6 @@
 //! The Accept-Ranges request header, defined in RFC 2616, Section 14.5.
 
-use std::io::IoResult;
+use std::old_io::IoResult;
 use std::ascii::AsciiExt;
 
 pub use self::AcceptableRanges::{RangeUnits, NoAcceptableRanges};

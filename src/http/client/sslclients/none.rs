@@ -1,8 +1,8 @@
 //! No SSL support (neither OpenSSL nor NSS were compiled in).
 
-use std::io::net::ip::SocketAddr;
-use std::io::net::tcp::TcpStream;
-use std::io::{IoResult, IoError, InvalidInput};
+use std::old_io::net::ip::SocketAddr;
+use std::old_io::net::tcp::TcpStream;
+use std::old_io::{IoResult, IoError, InvalidInput};
 use connecter::Connecter;
 use self::NetworkStream::NormalStream;
 

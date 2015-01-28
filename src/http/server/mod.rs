@@ -1,10 +1,10 @@
-use std::io::{Listener, Acceptor, IoResult};
-use std::io::net::ip::SocketAddr;
+use std::old_io::{Listener, Acceptor, IoResult};
+use std::old_io::net::ip::SocketAddr;
 use time::precise_time_ns;
 use std::thread::Thread;
 use std::sync::mpsc::{channel, Receiver};
 
-use std::io::net::tcp::TcpListener;
+use std::old_io::net::tcp::TcpListener;
 
 use buffer::BufferedStream;
 

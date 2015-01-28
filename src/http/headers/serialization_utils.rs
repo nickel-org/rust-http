@@ -1,6 +1,6 @@
 //! Utility functions for assisting with conversion of headers from and to the HTTP text form.
 
-use std::io::IoResult;
+use std::old_io::IoResult;
 use rfc2616::is_token;
 
 /// Normalise an HTTP header name.

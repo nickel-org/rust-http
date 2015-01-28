@@ -6,9 +6,9 @@
  * TODO: refactor all this to store things in more usefully categorised places.
  */
 use std::num::{UnsignedInt, NumCast, Int, cast};
-use std::io::{IoError, IoResult, OtherIoError};
+use std::old_io::{IoError, IoResult, OtherIoError};
 #[cfg(test)]
-use std::io::MemReader;
+use std::old_io::MemReader;
 
 // XXX: IoError ain't a good representation of this.
 fn bad_input() -> IoError {

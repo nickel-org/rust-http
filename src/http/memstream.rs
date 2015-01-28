@@ -16,7 +16,7 @@ impl MemWriterFakeStream {
 }
 
 impl Writer for MemWriterFakeStream {
-    fn write(&mut self, buf: &[u8]) -> IoResult<()> {
+    fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         let &mut MemWriterFakeStream(ref mut s) = self;
         s.write(buf)
     }
@@ -60,7 +60,7 @@ impl Seek for MemReaderFakeStream {
 }
 
 impl Writer for MemReaderFakeStream {
-    fn write(&mut self, _buf: &[u8]) -> IoResult<()> {
+    fn write_all(&mut self, _buf: &[u8]) -> IoResult<()> {
         panic!("Uh oh, you didn't aught to call MemReaderFakeStream.write()!")
     }
     fn flush(&mut self) -> IoResult<()> {

@@ -269,7 +269,7 @@ impl<S: Connecter + Reader + Writer = super::NetworkStream> RequestWriter<S> {
 
 /// Write the request body. Note that any calls to `write()` will cause the headers to be sent.
 impl<S: Reader + Writer + Connecter = super::NetworkStream> Writer for RequestWriter<S> {
-    fn write(&mut self, buf: &[u8]) -> IoResult<()> {
+    fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         if !self.headers_written {
             try!(self.write_headers());
         }

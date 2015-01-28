@@ -107,7 +107,7 @@ impl<'a> ResponseWriter<'a> {
 
 impl<'a> Writer for ResponseWriter<'a> {
 
-    fn write(&mut self, buf: &[u8]) -> IoResult<()> {
+    fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         if !self.headers_written {
             try!(self.write_headers());
         }

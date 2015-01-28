@@ -118,7 +118,7 @@ impl<T: Reader> Reader for BufferedStream<T> {
 }
 
 impl<T: Writer> Writer for BufferedStream<T> {
-    fn write(&mut self, buf: &[u8]) -> IoResult<()> {
+    fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         if buf.len() + self.write_len > self.write_buffer.len() {
             // This is the lazy approach which may involve multiple writes where it's really not
             // warranted. Maybe deal with that later.

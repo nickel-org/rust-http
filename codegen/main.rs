@@ -1,4 +1,4 @@
-#![allow(unstable)]
+#![feature(collections,core,io,os,path,std_misc)]
 use std::old_io::{File, Truncate, Write};
 use std::os;
 use std::thread::Thread;

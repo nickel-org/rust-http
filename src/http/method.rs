@@ -23,6 +23,7 @@ pub enum Method {
 }
 
 impl FromStr for Method {
+    type Err = ();
     /**
      * Get a *known* `Method` from an *ASCII* string, regardless of case.
      *
@@ -30,21 +31,21 @@ impl FromStr for Method {
      *
      * (If the string isn't ASCII, this will at present fail: TODO fix that.)
      */
-    fn from_str(method: &str) -> Option<Method> {
+    fn from_str(method: &str) -> Result<Method, ()> {
         if !method.is_ascii() {
-            return None;
+            return Err(());
         }
         match method {
-            "OPTIONS" => Some(Options),
-            "GET"     => Some(Get),
-            "HEAD"    => Some(Head),
-            "POST"    => Some(Post),
-            "PUT"     => Some(Put),
-            "DELETE"  => Some(Delete),
-            "TRACE"   => Some(Trace),
-            "CONNECT" => Some(Connect),
-            "PATCH"   => Some(Patch),
-            _         => None
+            "OPTIONS" => Ok(Options),
+            "GET"     => Ok(Get),
+            "HEAD"    => Ok(Head),
+            "POST"    => Ok(Post),
+            "PUT"     => Ok(Put),
+            "DELETE"  => Ok(Delete),
+            "TRACE"   => Ok(Trace),
+            "CONNECT" => Ok(Connect),
+            "PATCH"   => Ok(Patch),
+            _         => Err(())
         }
     }
 }

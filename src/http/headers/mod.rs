@@ -129,7 +129,7 @@ pub fn header_enum_from_stream<R: Reader, E: HeaderEnum>(reader: &mut R)
     let mut iter = HeaderValueByteIterator::new(reader);
     let header = HeaderEnum::value_from_stream(normalise_header_name(&header_name[]), &mut iter);
     // Ensure that the entire header line is consumed (don't want to mess up next header!)
-    for _ in iter { }
+    for _ in iter.by_ref() { }
     match header {
         Some(h) => (Ok(h), iter.next_byte),
         None => {
@@ -638,7 +638,7 @@ impl HeaderConvertible for String {
 
 impl HeaderConvertible for usize {
     fn from_stream<R: Reader>(reader: &mut HeaderValueByteIterator<R>) -> Option<usize> {
-        reader.collect_to_string().parse()
+        reader.collect_to_string().parse().ok()
     }
 
     fn http_value(&self) -> String {

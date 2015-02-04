@@ -1,7 +1,7 @@
+#![feature(collections,io)]
 //! A very simple HTTP server which responds with the plain text "Hello, World!" to every request.
 
 #![crate_name = "hello_world"]
-#![allow(unstable)]
 
 extern crate time;
 extern crate http;
@@ -30,7 +30,7 @@ impl Server for HelloWorldServer {
         });
         w.headers.server = Some(String::from_str("Example"));
 
-        w.write(b"Hello, World!\n").unwrap();
+        w.write_all(b"Hello, World!\n").unwrap();
     }
 }
 

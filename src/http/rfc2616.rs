@@ -188,17 +188,19 @@ impl fmt::Display for ContentCoding {
 }
 
 impl FromStr for ContentCoding {
-    fn from_str(s: &str) -> Option<ContentCoding> {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<ContentCoding, ()> {
         if s.eq_ignore_ascii_case("gzip") {
-            Some(ContentCoding::Gzip)
+            Ok(ContentCoding::Gzip)
         } else if s.eq_ignore_ascii_case("compress") {
-            Some(ContentCoding::Compress)
+            Ok(ContentCoding::Compress)
         } else if s.eq_ignore_ascii_case("deflate") {
-            Some(ContentCoding::Deflate)
+            Ok(ContentCoding::Deflate)
         } else if s.eq_ignore_ascii_case("identity") {
-            Some(ContentCoding::Identity)
+            Ok(ContentCoding::Identity)
         } else {
-            None
+            Err(())
         }
     }
 }
@@ -226,17 +228,19 @@ impl fmt::Display for TransferCoding {
 }
 
 impl FromStr for TransferCoding {
-    fn from_str(s: &str) -> Option<TransferCoding> {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<TransferCoding, ()> {
         if s.eq_ignore_ascii_case("gzip") {
-            Some(TransferCoding::Gzip)
+            Ok(TransferCoding::Gzip)
         } else if s.eq_ignore_ascii_case("compress") {
-            Some(TransferCoding::Compress)
+            Ok(TransferCoding::Compress)
         } else if s.eq_ignore_ascii_case("deflate") {
-            Some(TransferCoding::Deflate)
+            Ok(TransferCoding::Deflate)
         } else if s.eq_ignore_ascii_case("chunked") {
-            Some(TransferCoding::Chunked)
+            Ok(TransferCoding::Chunked)
         } else {
-            None
+            Err(())
         }
     }
 }

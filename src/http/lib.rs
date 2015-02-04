@@ -1,10 +1,10 @@
+#![feature(collections,core,hash,io,rustc_private,std_misc,unicode)]
 #![crate_name = "http"]
 
 #![doc(html_root_url = "http://www.rust-ci.org/chris-morgan/rust-http/doc/")]
 
 #![deny(non_camel_case_types)]
 //#[deny(missing_doc)];
-#![allow(unstable)]
 #![allow(deprecated)]
 
 #[macro_use] extern crate log;

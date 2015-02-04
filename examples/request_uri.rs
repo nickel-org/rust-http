@@ -1,3 +1,5 @@
+#![feature(collections,io)]
+
 //! An HTTP server demonstrating the probable direction of the library without actually being *in*
 //! the library.
 //!
@@ -5,7 +7,6 @@
 //! the correct values depend on the method.
 
 #![crate_name = "request_uri"]
-#![allow(unstable)]
 
 extern crate time;
 extern crate http;
@@ -65,7 +66,7 @@ impl Server for RequestUriServer {
             parameters: Vec::new()
         });
 
-        w.write(b"<!DOCTYPE html><title>Rust HTTP server</title>").unwrap();
+        w.write_all(b"<!DOCTYPE html><title>Rust HTTP server</title>").unwrap();
 
         match r.request_uri {
             Star | Authority(_) => {

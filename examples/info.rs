@@ -1,9 +1,10 @@
+#![feature(collections,core,io)]
+
 //! A not-quite-trivial HTTP server which responds to requests by showing the request and response
 //! headers and any other information it has.
 
 #![crate_name = "info"]
 
-#![allow(unstable)]
 extern crate time;
 extern crate http;
 
@@ -30,9 +31,9 @@ impl Server for InfoServer {
             parameters: vec!((String::from_str("charset"), String::from_str("UTF-8")))
         });
         w.headers.server = Some(String::from_str("Rust Thingummy/0.0-pre"));
-        w.write(b"<!DOCTYPE html><title>Rust HTTP server</title>").unwrap();
+        w.write_all(b"<!DOCTYPE html><title>Rust HTTP server</title>").unwrap();
 
-        w.write(b"<h1>Request</h1>").unwrap();
+        w.write_all(b"<h1>Request</h1>").unwrap();
         let s = format!("<dl>
             <dt>Method</dt><dd>{:?}</dd>
             <dt>Host</dt><dd>{:?}</dd>
@@ -44,35 +45,35 @@ impl Server for InfoServer {
             r.request_uri,
             r.version,
             r.close_connection);
-        w.write(s.as_bytes()).unwrap();
-        w.write(b"<h2>Extension headers</h2>").unwrap();
-        w.write(b"<table><thead><tr><th>Name</th><th>Value</th></thead><tbody>").unwrap();
+        w.write_all(s.as_bytes()).unwrap();
+        w.write_all(b"<h2>Extension headers</h2>").unwrap();
+        w.write_all(b"<table><thead><tr><th>Name</th><th>Value</th></thead><tbody>").unwrap();
         for header in r.headers.iter() {
             let line = format!("<tr><td><code>{}</code></td><td><code>{}</code></td></tr>",
                                header.header_name(),
                                header.header_value());
-            w.write(line.as_bytes()).unwrap();
+            w.write_all(line.as_bytes()).unwrap();
         }
-        w.write(b"</tbody></table>").unwrap();
-        w.write(b"<h2>Body</h2><pre>").unwrap();
-        w.write(r.body.as_slice()).unwrap();
-        w.write(b"</pre>").unwrap();
+        w.write_all(b"</tbody></table>").unwrap();
+        w.write_all(b"<h2>Body</h2><pre>").unwrap();
+        w.write_all(r.body.as_slice()).unwrap();
+        w.write_all(b"</pre>").unwrap();
 
-        w.write(b"<h1>Response</h1>").unwrap();
+        w.write_all(b"<h1>Response</h1>").unwrap();
         let s = format!("<dl><dt>Status</dt><dd>{:?}</dd></dl>", w.status);
-        w.write(s.as_bytes()).unwrap();
-        w.write(b"<h2>Headers</h2>").unwrap();
-        w.write(b"<table><thead><tr><th>Name</th><th>Value</th></thead><tbody>").unwrap();
+        w.write_all(s.as_bytes()).unwrap();
+        w.write_all(b"<h2>Headers</h2>").unwrap();
+        w.write_all(b"<table><thead><tr><th>Name</th><th>Value</th></thead><tbody>").unwrap();
         {
             let h = w.headers.clone();
             for header in h.iter() {
                 let line = format!("<tr><td><code>{}</code></td><td><code>{}</code></td></tr>",
                                 header.header_name(),
                                 header.header_value());
-                w.write(line.as_bytes()).unwrap();
+                w.write_all(line.as_bytes()).unwrap();
             }
         }
-        w.write(b"</tbody></table>").unwrap();
+        w.write_all(b"</tbody></table>").unwrap();
     }
 }
 

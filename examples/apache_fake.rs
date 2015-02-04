@@ -1,9 +1,10 @@
+#![feature(collections,io)]
+
 //! A sample HTTP server returning the same response as is returned by Apache httpd in its default
 //! configuration. Potentially useful for a smidgeon of performance comparison, though naturally
 //! Apache is doing a lot more than this does.
 
 #![crate_name = "apache_fake"]
-#![allow(unstable)]
 
 extern crate time;
 extern crate http;
@@ -53,7 +54,7 @@ impl Server for ApacheFakeServer {
         });
         w.headers.extensions.insert(String::from_str("X-Pad"), String::from_str("avoid browser bug"));
 
-        w.write(b"\
+        w.write_all(b"\
             <html><body><h1>It works!</h1>\n\
             <p>This is the default web page for this server.</p>\n\
             <p>The web server software is running but no content has been added, yet.</p>\n\

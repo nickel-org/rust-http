@@ -49,7 +49,7 @@ pub fn comma_split(value: &str) -> Vec<String> {
 }
 
 pub fn comma_split_iter<'a>(value: &'a str)
-        -> ::std::iter::Map<&'a str, &'a str, ::std::str::Split<'a, char>, fn(&str) -> &str> {
+        -> ::std::iter::Map<::std::str::Split<'a, char>, fn(&str) -> &str> {
     fn trim(w: &str) -> &str {w.trim_left()}
     
     value.split(',').map(trim as fn(&str) -> &str)

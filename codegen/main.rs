@@ -1,6 +1,6 @@
-#![feature(collections,core,io,os,path,std_misc)]
+#![feature(collections, core, io, path, std_misc, env)]
 use std::old_io::{File, Truncate, Write};
-use std::os;
+use std::env;
 use std::thread::Thread;
 
 pub mod branchify;
@@ -9,11 +9,11 @@ pub mod read_method;
 
 fn main() {
     Thread::spawn(move || {
-        let output_dir = Path::new(os::getenv("OUT_DIR").unwrap());
+        let output_dir = Path::new(env::var("OUT_DIR").unwrap());
         read_method::generate(output_dir).unwrap();
     });
 
-    let output_dir = Path::new(os::getenv("OUT_DIR").unwrap());
+    let output_dir = Path::new(env::var("OUT_DIR").unwrap());
     status::generate(output_dir).unwrap();
 }
 

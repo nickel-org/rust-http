@@ -47,7 +47,7 @@ let mut request: RequestWriter = match RequestWriter::new(Get, url) {
 };
 
 request.headers.content_length = Some(data.len());
-request.write(data);
+request.write_all(data);
 let response = match request.read_response() {
     Ok(response) => response,
     Err((_request, error)) => panic!(":-( {}", error),
@@ -267,7 +267,7 @@ impl<S: Connecter + Reader + Writer = super::NetworkStream> RequestWriter<S> {
     }
 }
 
-/// Write the request body. Note that any calls to `write()` will cause the headers to be sent.
+/// Write the request body. Note that any calls to `write_all()` will cause the headers to be sent.
 impl<S: Reader + Writer + Connecter = super::NetworkStream> Writer for RequestWriter<S> {
     fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         if !self.headers_written {
@@ -275,7 +275,7 @@ impl<S: Reader + Writer + Connecter = super::NetworkStream> Writer for RequestWr
         }
         // TODO: decide whether using get_mut_ref() is sound
         // (it will cause failure if None)
-        self.stream.as_mut().unwrap().write(buf)
+        self.stream.as_mut().unwrap().write_all(buf)
     }
 
     fn flush(&mut self) -> IoResult<()> {

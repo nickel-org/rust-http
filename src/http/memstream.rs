@@ -18,7 +18,7 @@ impl MemWriterFakeStream {
 impl Writer for MemWriterFakeStream {
     fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         let &mut MemWriterFakeStream(ref mut s) = self;
-        s.write(buf)
+        s.write_all(buf)
     }
 
     fn flush(&mut self) -> IoResult<()> {
@@ -61,7 +61,7 @@ impl Seek for MemReaderFakeStream {
 
 impl Writer for MemReaderFakeStream {
     fn write_all(&mut self, _buf: &[u8]) -> IoResult<()> {
-        panic!("Uh oh, you didn't aught to call MemReaderFakeStream.write()!")
+        panic!("Uh oh, you didn't aught to call MemReaderFakeStream.write_all()!")
     }
     fn flush(&mut self) -> IoResult<()> {
         panic!("Uh oh, you didn't aught to call MemReaderFakeStream.flush()!")
@@ -76,10 +76,10 @@ mod test {
     fn test_mem_writer_fake_stream() {
         let mut writer = MemWriterFakeStream::new();
         assert_eq!(writer.get_ref(),            []);
-        assert_eq!(writer.write(&[0]),          Ok(()));
+        assert_eq!(writer.write_all(&[0]),          Ok(()));
         assert_eq!(writer.get_ref(),            [0]);
-        assert_eq!(writer.write(&[1, 2, 3]),    Ok(()));
-        assert_eq!(writer.write(&[4, 5, 6, 7]), Ok(()));
+        assert_eq!(writer.write_all(&[1, 2, 3]),    Ok(()));
+        assert_eq!(writer.write_all(&[4, 5, 6, 7]), Ok(()));
         assert_eq!(writer.get_ref(),            [0, 1, 2, 3, 4, 5, 6, 7]);
     }
 

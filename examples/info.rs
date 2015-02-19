@@ -1,4 +1,4 @@
-#![feature(collections,core,io)]
+#![feature(collections,core,old_io)]
 
 //! A not-quite-trivial HTTP server which responds to requests by showing the request and response
 //! headers and any other information it has.

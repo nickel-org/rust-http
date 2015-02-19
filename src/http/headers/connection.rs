@@ -44,7 +44,7 @@ impl super::HeaderConvertible for Connection {
     }
 
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
-        writer.write(match *self {
+        writer.write_all(match *self {
             Close => b"close",
             Token(ref s) => s.as_bytes(),
         })

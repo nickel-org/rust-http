@@ -1,20 +1,20 @@
 #![crate_name = "client"]
 
-#![feature(core,io,os,slicing_syntax)]
+#![feature(old_io,env)]
 
 extern crate http;
 extern crate url;
 use http::client::RequestWriter;
 use http::method::Get;
 use http::headers::HeaderEnum;
-use std::os;
+use std::env;
 use std::str;
 use std::old_io::println;
 use url::Url;
 
 fn main() {
     format!("{:?}", Get);
-    let args = os::args();
+    let args : Vec<String> = env::args().collect();
     match args.len() {
         0 => unreachable!(),
         2 => make_and_print_request(&args[1][]),

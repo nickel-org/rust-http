@@ -51,40 +51,40 @@ pub fn comma_split(value: &str) -> Vec<String> {
 pub fn comma_split_iter<'a>(value: &'a str)
         -> ::std::iter::Map<::std::str::Split<'a, char>, fn(&str) -> &str> {
     fn trim(w: &str) -> &str {w.trim_left()}
-    
+
     value.split(',').map(trim as fn(&str) -> &str)
 }
 
 pub trait WriterUtil: Writer {
     fn write_maybe_quoted_string(&mut self, s: &String) -> IoResult<()> {
         if is_token(s) {
-            self.write(s.as_bytes())
+            self.write_all(s.as_bytes())
         } else {
             self.write_quoted_string(s)
         }
     }
 
     fn write_quoted_string(&mut self, s: &String) -> IoResult<()> {
-        try!(self.write(b"\""));
+        try!(self.write_all(b"\""));
         for b in s.as_bytes().iter() {
             if *b == b'\\' || *b == b'"' {
-                try!(self.write(b"\\"));
+                try!(self.write_all(b"\\"));
             }
             // XXX This doesn't seem right.
-            try!(self.write(&[*b]));
+            try!(self.write_all(&[*b]));
         }
-        self.write(b"\"")
+        self.write_all(b"\"")
     }
 
     fn write_parameter(&mut self, k: &str, v: &String) -> IoResult<()> {
-        try!(self.write(k.as_bytes()));
-        try!(self.write(b"="));
+        try!(self.write_all(k.as_bytes()));
+        try!(self.write_all(b"="));
         self.write_maybe_quoted_string(v)
     }
 
     fn write_parameters(&mut self, parameters: &[(String, String)]) -> IoResult<()> {
         for &(ref k, ref v) in parameters.iter() {
-            try!(self.write(b";"));
+            try!(self.write_all(b";"));
             try!(self.write_parameter(&k[], v));
         }
         Ok(())
@@ -101,7 +101,7 @@ pub trait WriterUtil: Writer {
     #[inline]
     fn write_token(&mut self, token: &String) -> IoResult<()> {
         assert!(is_token(token));
-        self.write(token.as_bytes())
+        self.write_all(token.as_bytes())
     }
 }
 

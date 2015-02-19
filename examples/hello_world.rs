@@ -1,4 +1,4 @@
-#![feature(collections,io)]
+#![feature(collections,old_io)]
 //! A very simple HTTP server which responds with the plain text "Hello, World!" to every request.
 
 #![crate_name = "hello_world"]

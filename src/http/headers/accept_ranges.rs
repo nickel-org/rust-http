@@ -42,10 +42,10 @@ impl super::HeaderConvertible for AcceptableRanges {
 
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
         match *self {
-            NoAcceptableRanges => writer.write(b"none"),
+            NoAcceptableRanges => writer.write_all(b"none"),
             RangeUnits(ref range_units) => {
                 for ru in range_units.iter() {
-                    try!(writer.write(match *ru {
+                    try!(writer.write_all(match *ru {
                         Bytes => b"bytes",
                         OtherRangeUnit(ref ru) => ru.as_bytes(),
                     }));

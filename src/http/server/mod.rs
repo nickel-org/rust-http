@@ -14,7 +14,7 @@ pub use self::response::ResponseWriter;
 pub mod request;
 pub mod response;
 
-pub trait Server: Send + Clone {
+pub trait Server: Send + 'static + Clone {
 	fn handle_request(&self, request: Request, response: &mut ResponseWriter) -> ();
 
 	// XXX: this could also be implemented on the serve methods

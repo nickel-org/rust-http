@@ -42,7 +42,7 @@ impl super::HeaderConvertible for TransferCoding {
 
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
         match *self {
-            Chunked => writer.write(b"chunked"),
+            Chunked => writer.write_all(b"chunked"),
             TransferExtension(ref token, ref parameters) => {
                 try!(writer.write_token(token));
                 writer.write_parameters(&parameters[])

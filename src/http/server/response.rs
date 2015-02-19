@@ -43,7 +43,7 @@ impl<'a> ResponseWriter<'a> {
         let cbytes = content.as_bytes();
         self.headers.content_length = Some(cbytes.len());
         try!(self.write_headers());
-        self.write(cbytes)
+        self.write_all(cbytes)
     }
 
     /// Write the Status-Line and headers of the response, if we have not already done so.
@@ -73,7 +73,7 @@ impl<'a> ResponseWriter<'a> {
         // XXX: Rust's current lack of statement-duration lifetime handling prevents this from being
         // one statement ("error: borrowed value does not live long enough")
         let s = format!("HTTP/1.1 {:?}\r\n", self.status);
-        try!(self.writer.write(s.as_bytes()));
+        try!(self.writer.write_all(s.as_bytes()));
 
         // FIXME: this is not an impressive way of handling it, but so long as chunked is the only
         // transfer-coding we want to deal with it's tolerable. However, it is *meant* to be an
@@ -111,7 +111,7 @@ impl<'a> Writer for ResponseWriter<'a> {
         if !self.headers_written {
             try!(self.write_headers());
         }
-        self.writer.write(buf)
+        self.writer.write_all(buf)
     }
 
     fn flush(&mut self) -> IoResult<()> {

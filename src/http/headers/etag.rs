@@ -60,7 +60,7 @@ impl super::HeaderConvertible for EntityTag {
 
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
         if self.weak {
-            try!(writer.write(b"W/"));
+            try!(writer.write_all(b"W/"));
         }
         writer.write_quoted_string(&self.opaque_tag)
     }

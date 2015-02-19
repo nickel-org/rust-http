@@ -565,7 +565,7 @@ pub trait HeaderConvertible: PartialEq + Clone + Debug {
      */
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
         let s = self.http_value();
-        writer.write(s.as_bytes())
+        writer.write_all(s.as_bytes())
     }
 
     /**
@@ -601,7 +601,7 @@ impl<T: CommaListHeaderConvertible> HeaderConvertible for Vec<T> {
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
         for (i, item) in self.iter().enumerate() {
             if i != 0 {
-                try!(writer.write(b", "))
+                try!(writer.write_all(b", "))
             }
             try!(item.to_stream(writer))
         }
@@ -628,7 +628,7 @@ impl HeaderConvertible for String {
     }
 
     fn to_stream<W: Writer>(&self, writer: &mut W) -> IoResult<()> {
-        writer.write(self.as_bytes())
+        writer.write_all(self.as_bytes())
     }
 
     fn http_value(&self) -> String {
@@ -961,7 +961,7 @@ macro_rules! headers_mod {
                     for header in self.iter() {
                         try!(header.write_header(&mut *writer));
                     }
-                    writer.write(b"\r\n")
+                    writer.write_all(b"\r\n")
                 }
             }
 

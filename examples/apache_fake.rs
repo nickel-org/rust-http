@@ -1,4 +1,4 @@
-#![feature(collections,io)]
+#![feature(collections,old_io)]
 
 //! A sample HTTP server returning the same response as is returned by Apache httpd in its default
 //! configuration. Potentially useful for a smidgeon of performance comparison, though naturally

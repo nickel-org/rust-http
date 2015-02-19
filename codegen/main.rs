@@ -1,14 +1,14 @@
-#![feature(collections, core, io, path, std_misc, env)]
+#![feature(collections, core, old_io, old_path, env, concat_idents)]
 use std::old_io::{File, Truncate, Write};
 use std::env;
-use std::thread::Thread;
+use std::thread::spawn;
 
 pub mod branchify;
 pub mod status;
 pub mod read_method;
 
 fn main() {
-    Thread::spawn(move || {
+    spawn(move || {
         let output_dir = Path::new(env::var("OUT_DIR").unwrap());
         read_method::generate(output_dir).unwrap();
     });

@@ -1,4 +1,4 @@
-#![feature(collections,io)]
+#![feature(collections,old_io)]
 
 //! An HTTP server demonstrating the probable direction of the library without actually being *in*
 //! the library.

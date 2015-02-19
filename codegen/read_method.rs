@@ -6,7 +6,7 @@ use std::old_io::IoResult;
 
 pub fn generate(output_dir: Path) -> IoResult<()> {
     let mut writer = get_writer(output_dir, "read_method.rs");
-    try!(writer.write(b"\
+    try!(writer.write_all(b"\
 // This automatically generated file is included in request.rs.
 pub mod dummy {
 use std::old_io::{Stream, IoResult};
@@ -39,5 +39,5 @@ pub fn read_method<S: Stream>(stream: &mut BufferedStream<S>) -> IoResult<Method
         "MAX_METHOD_LEN",
         "is_token_item(b)",
         "ExtensionMethod({})"));
-    writer.write(b"}\n}\n")
+    writer.write_all(b"}\n}\n")
 }

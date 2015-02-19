@@ -46,8 +46,8 @@ impl Reader for NetworkStream {
 impl Writer for NetworkStream {
     fn write_all(&mut self, buf: &[u8]) -> IoResult<()> {
         match *self {
-            NormalStream(ref mut ns) => ns.write(buf),
-            SslProtectedStream(ref mut ns) => ns.write(buf),
+            NormalStream(ref mut ns) => ns.write_all(buf),
+            SslProtectedStream(ref mut ns) => ns.write_all(buf),
         }
     }
 

@@ -1,4 +1,4 @@
-#![feature(collections,core,hash,old_io,io,rustc_private,std_misc,unicode,concat_idents)]
+#![feature(collections,core,old_io,io,rustc_private,std_misc,unicode,concat_idents)]
 #![crate_name = "http"]
 
 #![doc(html_root_url = "http://www.rust-ci.org/chris-morgan/rust-http/doc/")]

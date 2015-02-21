@@ -62,7 +62,7 @@ impl fmt::Display for Method {
             Trace                  => "TRACE",
             Connect                => "CONNECT",
             Patch                  => "PATCH",
-            ExtensionMethod(ref s) => &s[],
+            ExtensionMethod(ref s) => &s[..],
         })
     }
 }

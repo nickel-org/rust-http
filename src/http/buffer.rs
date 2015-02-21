@@ -33,10 +33,10 @@ impl<T: Stream> BufferedStream<T> {
         BufferedStream {
             wrapped: stream,
             read_buffer: read_buffer,
-            read_pos: 0us,
-            read_max: 0us,
+            read_pos: 0usize,
+            read_max: 0usize,
             write_buffer: write_buffer,
-            write_len: 0us,
+            write_len: 0usize,
             writing_chunked_body: false,
         }
     }
@@ -146,10 +146,10 @@ impl<T: Writer> Writer for BufferedStream<T> {
                 if self.writing_chunked_body {
                     let s = format!("{}\r\n", radix(self.write_len, 16));
                     try!(self.wrapped.write_all(s.as_bytes()));
-                    try!(self.wrapped.write_all(&self.write_buffer[]));
+                    try!(self.wrapped.write_all(&self.write_buffer[..]));
                     try!(self.wrapped.write_all(b"\r\n"));
                 } else {
-                    try!(self.wrapped.write_all(&self.write_buffer[]));
+                    try!(self.wrapped.write_all(&self.write_buffer[..]));
                 }
                 self.write_len = 0;
             }

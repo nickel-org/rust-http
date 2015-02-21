@@ -102,7 +102,7 @@ pub fn is_token_item(o: u8) -> bool {
 
 #[inline]
 pub fn is_token(s: &String) -> bool {
-    s[].bytes().all(|b| is_token_item(b))
+    s[..].bytes().all(|b| is_token_item(b))
 }
 
 

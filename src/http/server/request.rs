@@ -177,7 +177,7 @@ fn test_request_uri_from_string() {
     match RequestUri::from_string(url.to_string()) {
 	Some(RequestUri::AbsoluteUri(url)) => {
 	    assert_eq!(url.domain(), Some("example.com"));
-	    assert_eq!(url.path(), Some(&["abc".to_string()][]));
+	    assert_eq!(url.path(), Some(&["abc".to_string()][..]));
 	},
 	_ => panic!("Parse failed for {}", url),
     };
@@ -297,13 +297,13 @@ impl RequestUri {
     fn from_string(request_uri: String) -> Option<RequestUri> {
 	if request_uri.is_empty() {
 	    None
-	} else if &request_uri[] == "*" {
+	} else if &request_uri[..] == "*" {
             Some(Star)
         } else if request_uri.as_bytes()[0] as char == '/' {
             Some(AbsolutePath(request_uri))
         } else if request_uri.contains("/") {
             // An authority can't have a slash in it
-            match Url::parse(&request_uri[]) {
+            match Url::parse(&request_uri[..]) {
                 Ok(url) => Some(AbsoluteUri(url)),
                 Err(_) => None,
             }
@@ -319,8 +319,8 @@ impl fmt::Display for RequestUri {
         match *self {
             Star => f.write_str("*"),
             AbsoluteUri(ref url) => url.fmt(f),
-            AbsolutePath(ref s) => f.write_str(&s[]),
-            Authority(ref s) => f.write_str(&s[]),
+            AbsolutePath(ref s) => f.write_str(&s[..]),
+            Authority(ref s) => f.write_str(&s[..]),
         }
     }
 }
@@ -390,7 +390,7 @@ impl Request {
                         request.close_connection = true;
                         break;
                     },
-                    headers::connection::Connection::Token(ref s) if &s[] == "keep-alive" => {
+                    headers::connection::Connection::Token(ref s) if &s[..] == "keep-alive" => {
                         request.close_connection = false;
                         // No break; let it be overridden by close should some weird person do that
                     },

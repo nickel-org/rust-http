@@ -45,7 +45,7 @@ impl HttpStatus {
 
     fn padded_ident(&self) -> String {
         let mut s = self.ident();
-        s.push_str(&self.reason_padding_spaces()[]);
+        s.push_str(&self.reason_padding_spaces()[..]);
         s
     }
 
@@ -227,7 +227,7 @@ impl Status {
     /// Get a status from the code and reason
     pub fn from_code_and_reason(status: u16, reason: String) -> Status {
         let reason_lower = reason.to_ascii_lowercase();
-        match (status, &reason_lower[]) {
+        match (status, &reason_lower[..]) {
 ".as_bytes()));
     for &entry in entries.iter() {
         match entry {

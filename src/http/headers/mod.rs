@@ -127,13 +127,13 @@ pub fn header_enum_from_stream<R: Reader, E: HeaderEnum>(reader: &mut R)
         }
     }
     let mut iter = HeaderValueByteIterator::new(reader);
-    let header = HeaderEnum::value_from_stream(normalise_header_name(&header_name[]), &mut iter);
+    let header = HeaderEnum::value_from_stream(normalise_header_name(&header_name[..]), &mut iter);
     // Ensure that the entire header line is consumed (don't want to mess up next header!)
     for _ in iter.by_ref() { }
     match header {
         Some(h) => (Ok(h), iter.next_byte),
         None => {
-            debug!("malformed header value for {}", &header_name[]);
+            debug!("malformed header value for {}", &header_name[..]);
             // Alas, I can't tell you what the value actually was... TODO: improve that situation
             (Err(MalformedHeaderValue), iter.next_byte)
         },
@@ -614,7 +614,7 @@ impl<T: CommaListHeaderConvertible> HeaderConvertible for Vec<T> {
             if i != 0 {
                 out.push_str(", ");
             }
-            out.push_str(&item.http_value()[])
+            out.push_str(&item.http_value()[..])
         }
         out
     }
@@ -648,7 +648,7 @@ impl HeaderConvertible for usize {
 
 impl HeaderConvertible for Url {
     fn from_stream<R: Reader>(reader: &mut HeaderValueByteIterator<R>) -> Option<Url> {
-        Url::parse(&reader.collect_to_string()[]).ok()
+        Url::parse(&reader.collect_to_string()[..]).ok()
     }
 
     fn http_value(&self) -> String {
@@ -661,7 +661,7 @@ impl CommaListHeaderConvertible for Method {}
 impl HeaderConvertible for Method {
     fn from_stream<R: Reader>(reader: &mut HeaderValueByteIterator<R>) -> Option<Method> {
         match reader.read_token() {
-            Some(s) => Method::from_str_or_new(&s[]),
+            Some(s) => Method::from_str_or_new(&s[..]),
             None => None,
         }
     }
@@ -734,17 +734,17 @@ impl HeaderConvertible for Tm {
         let value = reader.collect_to_string();
 
         // XXX: %Z actually ignores any timezone other than UTC. Probably not a good idea?
-        match strptime(&value[], "%a, %d %b %Y %T %Z") {  // RFC 822, updated by RFC 1123
+        match strptime(&value[..], "%a, %d %b %Y %T %Z") {  // RFC 822, updated by RFC 1123
             Ok(time) => return Some(time),
             Err(_) => ()
         }
 
-        match strptime(&value[], "%A, %d-%b-%y %T %Z") {  // RFC 850, obsoleted by RFC 1036
+        match strptime(&value[..], "%A, %d-%b-%y %T %Z") {  // RFC 850, obsoleted by RFC 1036
             Ok(time) => return Some(time),
             Err(_) => ()
         }
 
-        match strptime(&value[], "%c") {  // ANSI C's asctime() format
+        match strptime(&value[..], "%c") {  // ANSI C's asctime() format
             Ok(time) => Some(time),
             Err(_) => None
         }
@@ -786,20 +786,20 @@ mod test {
     fn test_from_stream_usize() {
         assert_eq!(from_stream_with_str::<usize>("foo bar"), None);
         assert_eq!(from_stream_with_str::<usize>("-1"), None);
-        assert_eq!(from_stream_with_str("0"), Some(0us));
-        assert_eq!(from_stream_with_str("123456789"), Some(123456789us));
+        assert_eq!(from_stream_with_str("0"), Some(0usize));
+        assert_eq!(from_stream_with_str("123456789"), Some(123456789usize));
     }
 
     #[test]
     fn test_http_value_usize() {
-        assert_eq!(0us.http_value(), String::from_str("0"));
-        assert_eq!(123456789us.http_value(), String::from_str("123456789"));
+        assert_eq!(0usize.http_value(), String::from_str("0"));
+        assert_eq!(123456789usize.http_value(), String::from_str("123456789"));
     }
 
     #[test]
     fn test_to_stream_usize() {
-        assert_eq!(to_stream_into_str(&0us), String::from_str("0"));
-        assert_eq!(to_stream_into_str(&123456789us), String::from_str("123456789"));
+        assert_eq!(to_stream_into_str(&0usize), String::from_str("0"));
+        assert_eq!(to_stream_into_str(&123456789usize), String::from_str("123456789"));
     }
 
     fn sample_tm() -> Tm {
@@ -1035,7 +1035,7 @@ macro_rules! headers_mod {
 
                 fn value_from_stream<R: Reader>(name: String, value: &mut HeaderValueByteIterator<R>)
                         -> Option<Header> {
-                    match &name.clone().into_ascii_lowercase()[] {
+                    match &name.clone().into_ascii_lowercase()[..] {
                         $($input_name => match HeaderConvertible::from_stream(value) {
                             Some(v) => Some($caps_ident(v)),
                             None => None,
